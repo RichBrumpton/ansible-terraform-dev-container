@@ -18,7 +18,19 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Install Ansible
-RUN pip3 install ansible
+RUN pip3 install ansible\
+    && pip install psutil\
+    && pip install -U "ansible == 2.9.11"\
+    && pip install PyVmomi\
+    && pip install --upgrade setuptools pip\
+    && pip install --upgrade git+https://github.com/vmware/vsphere-automation-sdk-python.git\
+    && pip install "pywinrm>=0.2.2"\
+    && pip install pywinrm[credssp]\
+    && pip install netaddr\
+    && pip install python3-ldap\
+    && pip install selinux\
+    && pip install dnspython\
+    && pip install PyMySQL
 
 # [Option] Install Azure CLI
 ARG INSTALL_AZURE_CLI="true"
