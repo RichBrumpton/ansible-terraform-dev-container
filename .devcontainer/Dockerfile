@@ -6,7 +6,7 @@ COPY library-scripts/*.sh /tmp/library-scripts/
 # [Option] Install zsh
 ARG INSTALL_ZSH="true"
 # [Option] Upgrade OS packages to their latest versions
-ARG UPGRADE_PACKAGES="false"
+ARG UPGRADE_PACKAGES="true"
 
 # Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies.
 ARG USERNAME=vscode
@@ -18,19 +18,20 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Install Ansible
-RUN pip3 install ansible\
-    && pip install psutil\
-    && pip install -U "ansible == 2.9.11"\
-    && pip install PyVmomi\
-    && pip install --upgrade setuptools pip\
-    && pip install --upgrade git+https://github.com/vmware/vsphere-automation-sdk-python.git\
-    && pip install "pywinrm>=0.2.2"\
-    && pip install pywinrm[credssp]\
-    && pip install netaddr\
-    && pip install python3-ldap\
-    && pip install selinux\
-    && pip install dnspython\
-    && pip install PyMySQL
+RUN pip3 install ansible-core\
+    && pip3 install ansible\
+    && pip3 install psutil\
+    && pip3 install PyVmomi\
+    && pip3 install --upgrade setuptools pip\
+    && pip3 install --upgrade git+https://github.com/vmware/vsphere-automation-sdk-python.git\
+    && pip3 install "pywinrm>=0.2.2"\
+    && pip3 install pywinrm[credssp]\
+    && pip3 install netaddr\
+    && pip3 install python3-ldap\
+    && pip3 install selinux\
+    && pip3 install dnspython\
+    && pip3 install PyMySQL
+    
 
 # [Option] Install Azure CLI
 ARG INSTALL_AZURE_CLI="true"
